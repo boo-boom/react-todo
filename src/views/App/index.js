@@ -5,31 +5,12 @@ import AddTodo from "../../components/AddTodo";
 import Footer from "../../components/Footer";
 import TodoList from "../../components/TodoList";
 
-const todos = [
-  {
-    id: 1,
-    text: "学习react",
-    completed: true
-  },
-  {
-    id: 2,
-    text: "学习vue",
-    completed: true
-  },
-  {
-    id: 3,
-    text: "学习angular",
-    completed: true
-  }
-];
-const filter = "all";
-
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      todos,
-      filter
+      todos: [],
+      filter: "all"
     };
     // 和UI没有关联，定义为普通的成员变量
     this.nextTodoId = 0;
@@ -48,19 +29,18 @@ class App extends Component {
     });
   }
 
-  addTodo(text) {
-
-    // const todo = {
-    //   id: this.nextTodoId,
-    //   text,
-    //   completed: false
-    // };
-    console.log(this.props)
-    // const newTodos = [todo, ...this.state.todos];
-    // this.setState({
-    //   todos: newTodos
-    // });
-  }
+  // 使用箭头函数不修改this指向
+  addTodo = text => {
+    const todo = {
+      id: this.nextTodoId++,
+      text,
+      completed: false
+    };
+    const newTodos = [todo, ...this.state.todos];
+    this.setState({
+      todos: newTodos
+    });
+  };
 
   render() {
     const { filter } = this.state;
