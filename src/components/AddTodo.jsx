@@ -11,7 +11,7 @@ class AddTodo extends Component {
   }
 
   componentWillMount() {
-    this.requestTest();
+    // this.requestTest();
   }
 
   requestTest() {
