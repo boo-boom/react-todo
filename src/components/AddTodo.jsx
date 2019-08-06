@@ -24,10 +24,21 @@ class AddTodo extends Component {
     this.props.addTodo(this.state.value);
   }
 
+  handleChange(e) {
+    const value = e.target.value;
+    this.setState({
+      value
+    });
+  }
+
   render() {
     return (
       <div>
-        <input type="text" value={this.state.value} readOnly />
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={e => this.handleChange(e)}
+        />
         <button onClick={this.handleClick}>Add</button>
       </div>
     );

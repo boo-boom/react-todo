@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./../../assets/svg/logo.svg";
+// import logo from "./../../assets/svg/logo.svg";
 import "./App.css";
 import AddTodo from "../../components/AddTodo";
 import Footer from "../../components/Footer";
@@ -42,16 +42,31 @@ class App extends Component {
     });
   };
 
+  toggleTodo = id => {
+    const newTodos = this.state.todos.map(todo => {
+      return todo.id === id ? { ...todo, completed: !todo.completed } : todo;
+    });
+    this.setState({
+      todos: newTodos
+    });
+  }
+
+  changeFilter = filter => {
+    this.setState({
+      filter
+    })
+  }
+
   render() {
     const { filter } = this.state;
     const todos = this.getVisibleTodos();
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <AddTodo addTodo={this.addTodo} />
-          <TodoList todos={todos} />
-          <Footer filter={filter} />
+          <TodoList todos={todos} toggleTodo={this.toggleTodo} />
+          <Footer filter={filter} changeFilter={this.changeFilter} />
         </header>
       </div>
     );
