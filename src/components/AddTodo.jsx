@@ -1,34 +1,17 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 class AddTodo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: "123"
-    };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillMount() {
-    // this.requestTest();
-  }
-
-  requestTest() {
-    axios.get("/posts").then(res => {
-      console.log(res.data);
-    });
-  }
-
   handleClick() {
-    this.props.addTodo(this.state.value);
+    this.props.addTodo(this.props.text);
   }
 
   handleChange(e) {
-    const value = e.target.value;
-    this.setState({
-      value
-    });
+    this.props.setTodoText(e.target.value);
   }
 
   render() {
@@ -36,7 +19,7 @@ class AddTodo extends Component {
       <div>
         <input
           type="text"
-          value={this.state.value}
+          value={this.props.text}
           onChange={e => this.handleChange(e)}
         />
         <button onClick={this.handleClick}>Add</button>
