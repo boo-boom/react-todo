@@ -1,3 +1,4 @@
+// 容器组件：获取数据/处理数据
 import { connect } from "react-redux";
 import { setTodoText, addTodo } from "../actions";
 import AddTodo from "../components/AddTodo";
