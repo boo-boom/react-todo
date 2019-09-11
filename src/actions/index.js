@@ -1,8 +1,13 @@
+import axios from "axios";
+
 import {
   ADD_TODO,
   TOGGLE_TODO,
   CHANGE_FILTER,
-  SET_TODO_TEXT
+  SET_TODO_TEXT,
+  FETCH_TODOS_REQUEST,
+  FETCH_TODOS_SUCCESS,
+  FETCH_TODOS_FAILURE
 } from "./actionTypes";
 
 let nextTodoId = 0;
@@ -43,3 +48,31 @@ export const setTodoText = text => ({
   type: SET_TODO_TEXT,
   text
 });
+
+/**
+ * 异步action
+ */
+const fetchTodosRequest = () => ({
+  type: FETCH_TODOS_REQUEST
+});
+const fetchTodosSuccess = res => ({
+  type: FETCH_TODOS_SUCCESS,
+  res
+});
+const fetchTodosFailure = err => ({
+  type: FETCH_TODOS_FAILURE,
+  err
+});
+export const fetchTodos = () => {
+  return dispatch => {
+    dispatch(fetchTodosRequest())
+    axios.get("db.json").then(res => {
+      dispatch(fetchTodosSuccess(res))
+      console.log(res)
+    }).catch(err => {
+      dispatch(fetchTodosFailure(err))
+      console.log(err)
+    });
+  };
+};
+
