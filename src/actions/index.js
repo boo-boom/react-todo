@@ -10,17 +10,20 @@ import {
   FETCH_TODOS_FAILURE
 } from "./actionTypes";
 
-let nextTodoId = 0;
+let nextTodoId = 3;
 
 /**
  * 新增待办事项
  * @param {string} text
+ * @param {number} nextTodoId
  */
-export const addTodo = text => ({
-  type: ADD_TODO,
-  id: nextTodoId++,
-  text
-});
+export const addTodo = text => {
+  return {
+    type: ADD_TODO,
+    id: nextTodoId++,
+    text
+  }
+};
 
 /**
  * 更改待办事项状态
@@ -55,23 +58,21 @@ export const setTodoText = text => ({
 const fetchTodosRequest = () => ({
   type: FETCH_TODOS_REQUEST
 });
-const fetchTodosSuccess = res => ({
+const fetchTodosSuccess = data => ({
   type: FETCH_TODOS_SUCCESS,
-  res
+  data
 });
-const fetchTodosFailure = err => ({
+const fetchTodosFailure = error => ({
   type: FETCH_TODOS_FAILURE,
-  err
+  error
 });
 export const fetchTodos = () => {
   return dispatch => {
     dispatch(fetchTodosRequest())
     axios.get("db.json").then(res => {
-      dispatch(fetchTodosSuccess(res))
-      console.log(res)
+      dispatch(fetchTodosSuccess(res.data))
     }).catch(err => {
       dispatch(fetchTodosFailure(err))
-      console.log(err)
     });
   };
 };

@@ -8,7 +8,7 @@ class AddTodo extends Component {
   }
 
   handleClick() {
-    this.props.addTodo(this.props.text);
+    this.props.addTodo(this.props.text, this.props.todoLen);
   }
 
   handleChange(e) {
@@ -23,7 +23,7 @@ class AddTodo extends Component {
           value={this.props.text}
           onChange={e => this.handleChange(e)}
         />
-        <button onClick={this.handleClick}>Add</button>
+        <button onClick={this.handleClick}>Add id: {this.props.todoLen}</button>
       </div>
     );
   }
